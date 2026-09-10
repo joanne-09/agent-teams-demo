@@ -1,0 +1,171 @@
+/*
+ * One column, sized in viewport units, with every box border-box and every
+ * horizontal run allowed to wrap. That is what keeps a 375 px viewport free of
+ * horizontal scrolling (AC-9) without hiding overflow, which would only make
+ * clipped content invisible rather than fitting.
+ */
+:root {
+  --shared: #c2185b;
+  --single: #1565c0;
+  --ink: #1c1c1c;
+  --paper: #ffffff;
+  --warn-bg: #fff4e5;
+  --warn-ink: #7a4a00;
+  --rule: #d8d8d8;
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.55;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+}
+
+.page-header {
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+  /* Sticky rather than merely first: AC-6 requires the disclaimer be visible
+     at all times, including after the page is scrolled on a short viewport.
+     The z-index clears Leaflet's own controls, which sit at 1000. */
+  position: sticky;
+  top: 0;
+  z-index: 1200;
+}
+
+.page-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.05rem;
+}
+
+.disclaimer {
+  margin: 0 0 0.4rem;
+  padding: 0.45rem 0.6rem;
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+  border-inline-start: 4px solid var(--warn-ink);
+  border-radius: 3px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.counters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+.counter-label::after {
+  content: "：";
+}
+
+.counter-value {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.notice {
+  margin: 0;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.8rem;
+  background: #f4f6f8;
+  border-bottom: 1px solid var(--rule);
+  overflow-wrap: anywhere;
+}
+
+.notice-error {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.6rem;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.78rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.legend-title::after {
+  content: "：";
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.legend-swatch {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+.legend-swatch.marker-shared {
+  background: var(--shared);
+  border: 3px solid var(--shared);
+}
+
+.legend-swatch.marker-single {
+  background: var(--single);
+  opacity: 0.6;
+}
+
+.map {
+  flex: 1 1 auto;
+  min-height: 45dvh;
+  width: 100%;
+  background: #e9e6df;
+}
+
+.attribution {
+  padding: 0.35rem 0.9rem;
+  font-size: 0.72rem;
+  border-top: 1px solid var(--rule);
+}
+
+/* Shared-address markers carry a heavier ring as well as a different hue, so
+   the distinction survives a colour-vision difference (AC-3). */
+.marker-shared {
+  stroke-dasharray: 4 2;
+}
+
+@media (max-width: 420px) {
+  .page-title {
+    font-size: 0.98rem;
+  }
+
+  .counters {
+    gap: 0.25rem 0.7rem;
+  }
+}
