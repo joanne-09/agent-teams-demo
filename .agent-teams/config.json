@@ -1,0 +1,71 @@
+{
+  "repo": "joanne-09/agent-teams-demo",
+  "project_owner": "joanne-09",
+  "project_number": 1,
+  "role_field": "Role",
+  "status_field": "Status",
+  "backlog_status": "Backlog",
+  "ready_status": "Ready",
+  "dispatch_roles": [
+    "architect",
+    "dev",
+    "qa"
+  ],
+  "wip_limit": 5,
+  "handoff_cap": 6,
+  "monitor_poll_seconds": 30,
+  "board_page_limit": 100,
+  "board_max_items": 2000,
+  "recovery": {
+    "max_retries": 1,
+    "initial_backoff_seconds": 5.0,
+    "backoff_multiplier": 2.0,
+    "max_backoff_seconds": 60.0
+  },
+  "workspace": "../.worktrees",
+  "protected_paths": {
+    "authority-and-policy": [
+      "scripts/agent_teams/policy.py",
+      "scripts/agent_teams/model.py"
+    ],
+    "acceptance-and-merge": [
+      "scripts/agent_teams/git.py",
+      "scripts/agent_teams/workflows.py"
+    ],
+    "github-workflows-and-credentials": [
+      ".github/workflows/**",
+      "**/*credential*"
+    ],
+    "dependencies-and-manifests": [
+      ".claude-plugin/**",
+      ".agent-teams/config.json",
+      "**/package.json",
+      "**/pyproject.toml",
+      "**/requirements*.txt"
+    ],
+    "agent-instructions": [
+      "skills/**",
+      "CLAUDE.md",
+      "AGENTS.md"
+    ],
+    "security-boundaries": [
+      "**/auth/**",
+      "**/*secret*"
+    ],
+    "architecture-and-design": [
+      "docs/ARCHITECTURE.md",
+      "docs/specs/**"
+    ],
+    "configuration-vocabulary": [
+      "scripts/agent_teams/config.py",
+      "docs/CONFIGURATION.md"
+    ]
+  },
+  "required_checks": [
+    "test"
+  ],
+  "spec_pr_merge_mode": "direct",
+  "code_pr_merge_mode": "automatic",
+  "code_pr_merge_method": "squash",
+  "claim_ttl_hours": 72
+}
